@@ -2,7 +2,7 @@ var request = require('request');
 var secrets = require('./secrets.js')
 var fs = require('fs');
 var args = process.argv.slice(2)
-console.log(args);
+
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -12,7 +12,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
         url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
         headers: {
             'User-Agent': 'request',
-            'Authorization': secrets.GITHUB_TOKEN
+            'Authorization': secrets.GITHUB_TOKEN //github token inside secrets.js
         }
     };
 
@@ -20,7 +20,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
         cb(err, body); //callback is technically getContributors
     });
 }
-if (args[0] && args[1]) {
+if (args[0] && args[1]) { // if command line arguments exist then proceed
     getRepoContributors("jquery", "jquery", function(err, result) {
         console.log("Errors:", err);
         // console.log("Result:", result);
@@ -31,7 +31,7 @@ if (args[0] && args[1]) {
             console.log("Downloading... " + person.login);
         }
     });
-} else {
+} else { //if command line areguments dont exist then ...
     console.log("No arguments supplied")
 }
 
